@@ -1,0 +1,284 @@
+/* ==========================================================================
+   1. Variables
+   ========================================================================== */
+:root {
+  --bg-main: #f7f6f5;
+  --bg-card: #ffffff;
+  --text-second:#ffffff;
+  --text-main: #1d1d1f;
+  --text-muted: #86868b;
+  --accent-color: #0071e3;
+  --nav-bg: rgba(255, 255, 255, 0.05);
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 8px 30px rgba(255, 123, 0, 0.7);
+  --radius: 16px;
+  --border-light: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   2. Base
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 15px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding-top: 80px; /* place pour le header fixe */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  flex: 1 0 auto; /* pousse le footer en bas */
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* espace entre chaque section */
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   3. Header & navigation
+   ========================================================================== */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 10px 24px;
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: var(--border-light);
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  color: var(--text-main);
+  font-weight: 500;
+  text-decoration: none;
+
+  /* état de départ : verre invisible */
+  background: rgba(255, 255, 255, 0);
+  border: 1px solid transparent;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0);
+
+  /* la transition porte sur le fond, la bordure, l'ombre et la couleur */
+  transition: background-color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease,
+              color 0.3s ease;
+}
+
+nav a:hover,
+nav a[aria-current="page"] {
+  color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08),
+              inset 0 1px 0 rgba(255, 255, 255, 0.8); /* reflet en haut */
+}
+
+/* ==========================================================================
+   4. Cartes (articles) et mises en page
+   ========================================================================== */
+article {
+  flex: 1;
+  padding: 32px;
+  background-color: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+article a{
+  display: inline-block;
+  margin: 0 10px;
+  color: var(--accent-color);
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+article:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+article h1,
+article h2 {
+  margin-top: 0;
+}
+
+article h2 {
+  margin-bottom: 16px;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+article p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+article p + p {
+  margin-top: 1em;
+}
+
+/* Article + image côte à côte (page Histoire) */
+.conteneur {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.conteneur.inverse {
+  flex-direction: row-reverse;
+}
+
+aside {
+  flex: 0 0 40%;
+  max-width: 450px;
+}
+
+aside img {
+  display: block;
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Cartes cliquables en alternance gauche / droite (page Création) */
+.cartes {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.carte {
+  flex: 0 1 auto;
+  width: 70%;
+}
+
+.carte--droite { align-self: flex-end; }
+.carte--gauche { align-self: flex-start; }
+
+.carte__lien {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.carte:has(.carte__lien:focus-visible) {
+  outline: 3px solid var(--accent-color);
+  outline-offset: 4px;
+}
+
+/* ==========================================================================
+   5. Image en grand (sans JavaScript, via :target)
+   ========================================================================== */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.lightbox:target {
+  display: flex;
+}
+
+.lightbox img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border-radius: var(--radius);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+figcaption{
+  font-weight: bold;
+  color: var(--text-second);
+}
+
+
+
+
+
+/* ==========================================================================
+   6. Footer
+   ========================================================================== */
+footer {
+  width: 100%;
+  margin-top: auto;
+  padding: 30px 24px;
+  background-color: var(--bg-card);
+  border-top: var(--border-light);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+footer p {
+  margin: 4px 0;
+}
+
+footer a {
+  display: inline-block;
+  margin: 0 10px;
+  color: var(--accent-color);
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
