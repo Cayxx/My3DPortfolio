@@ -4,212 +4,33 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Portfolio 3D</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#0b0b0e;--card:rgba(255,255,255,.04);--line:rgba(255,255,255,.1);--tx:#f5f5f7;--mut:#a0a0ad;--acc:#ff7a1a;--acc2:#ffb347;--f:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:dark;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#faf7f4;--card:rgba(0,0,0,.04);--line:rgba(0,0,0,.1);--tx:#1b1b1f;--mut:#686873;color-scheme:light}}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:70px}
-body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--f);line-height:1.55;overflow-x:hidden}
-.w{max-width:1000px;margin:0 auto;padding:0 20px}
-nav{position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top,0px);background:color-mix(in srgb,var(--bg) 75%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-nav .w{display:flex;align-items:center;justify-content:space-between;height:58px}
-nav b{font-size:1.1rem;letter-spacing:.5px}
-nav a{color:var(--mut);text-decoration:none;margin-left:16px;font-size:.92rem;transition:color .2s}
-nav a:hover{color:var(--acc)}
-.g{background:linear-gradient(120deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero{padding:56px 0 30px;background:radial-gradient(700px 380px at 85% 10%,rgba(255,122,26,.25),transparent 70%),radial-gradient(500px 300px at 0 80%,rgba(255,179,71,.1),transparent 70%)}
-.hero .w{display:flex;align-items:center;gap:30px;flex-wrap:wrap-reverse;justify-content:center}
-.hero .t{flex:1 1 340px}
-h1{font-size:clamp(2.2rem,9vw,3.9rem);line-height:1.04;margin:0 0 14px;letter-spacing:-1px}
-h2{font-size:1.7rem;margin:0 0 22px;letter-spacing:-.5px}
-.hero p{color:var(--mut);max-width:520px;font-size:1.05rem}
-.scene{width:150px;height:150px;perspective:700px;margin:20px 40px}
-.cube{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:spin 16s linear infinite}
-.cube i{position:absolute;inset:0;border:2px solid var(--acc);background:rgba(255,122,26,.08);box-shadow:inset 0 0 24px rgba(255,122,26,.35)}
-.cube i:nth-child(1){transform:translateZ(75px)}
-.cube i:nth-child(2){transform:rotateY(90deg) translateZ(75px)}
-.cube i:nth-child(3){transform:rotateY(180deg) translateZ(75px)}
-.cube i:nth-child(4){transform:rotateY(-90deg) translateZ(75px)}
-.cube i:nth-child(5){transform:rotateX(90deg) translateZ(75px)}
-.cube i:nth-child(6){transform:rotateX(-90deg) translateZ(75px)}
-@keyframes spin{to{transform:rotateX(360deg) rotateY(360deg)}}
-.mq{overflow:hidden;border-block:1px solid var(--line);padding:12px 0;color:var(--mut);white-space:nowrap}
-.mq div{display:inline-block;animation:mq 22s linear infinite}
-.mq span{margin:0 22px}.mq span::after{content:"✦";color:var(--acc);margin-left:44px}
-@keyframes mq{to{transform:translateX(-50%)}}
-section{padding:46px 0}
-.btn{display:inline-block;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#1a1005;border:0;border-radius:14px;padding:13px 24px;font:700 1rem var(--f);text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,122,26,.4)}
-.btn.o{background:transparent;color:var(--acc);border:2px solid var(--acc)}
-.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
-.st{flex:1 1 130px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;backdrop-filter:blur(8px)}
-.st b{display:block;font-size:1.7rem}.st small{color:var(--mut)}
-.model{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:12px;margin-bottom:28px;transition:border-color .3s,box-shadow .3s,transform .3s}
-.model:hover{border-color:var(--acc);box-shadow:0 0 40px rgba(255,122,26,.18);transform:translateY(-3px)}
-.stage{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:14px;background:linear-gradient(135deg,#1d1d25,#3a2514);cursor:pointer}
-.stage>*{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 1s ease}
-.stage .ph{opacity:0}.stage.photo .ph{opacity:1}.stage.photo video{opacity:0}
-.stage .empty{display:flex;align-items:center;justify-content:center;color:var(--mut)}
-.tag{inset:auto 10px 10px auto;width:auto;height:auto;background:rgba(0,0,0,.6);color:#fff;font-size:.75rem;padding:3px 11px;border-radius:20px;transition:none!important}
-.info{padding:14px 8px 6px;display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
-.info h3{margin:0}.info p{margin:0;color:var(--mut)}
-.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
-.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;transition:transform .25s,border-color .25s}
-.card:hover{transform:translateY(-5px);border-color:var(--acc)}
-.card i{font-style:normal;font-weight:700;font-size:1.6rem}
-.card h3{margin:6px 0}.card p{margin:0;color:var(--mut)}
-.dcard{display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,rgba(88,101,242,.18),rgba(255,122,26,.12));border:1px solid var(--line);border-radius:20px;padding:18px 20px;margin-bottom:26px;flex-wrap:wrap}
-.dcard .dot{width:10px;height:10px;border-radius:50%;background:#3ba55d;display:inline-block;margin-right:6px}
-.dcard div{flex:1 1 200px}.dcard p{margin:0;color:var(--mut)}
-form{display:grid;gap:12px;max-width:520px}
-input,select,textarea{width:100%;padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--tx);font:inherit}
-input:focus,select:focus,textarea:focus{outline:2px solid var(--acc);border-color:transparent}
-select option{color:#111}
-form[hidden]{display:none}
-.who{color:var(--mut)}
-#login{margin:4px 0 22px}
-#msg{color:var(--acc);min-height:1.4em}
-footer{text-align:center;color:var(--mut);padding:36px 0;border-top:1px solid var(--line)}
-.rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
-.rv.in{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.cube,.mq div{animation:none}.stage>*{transition:none}}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<nav><div class="w"><b>Mon <span class="g">Portfolio</span> 3D</b><div><a href="#modeles">Modèles</a><a href="#services">Services</a><a href="#contact">Contact</a></div></div></nav>
+<header><div class="w"><a class="logo" href="index.html">Portfolio</a><nav><a href="index.html" class="on">Accueil</a><a href="portfolio.html">Portfolio</a><a href="#contact">Contact</a></nav></div></header>
+<main class="w">
+<div class="intro"><h1>Modélisation 3D pour jeux vidéo, stylisée et réaliste.</h1><p>Personnages, props et décors. Réserve ton modèle en quelques clics.</p></div>
 
-<header class="hero"><div class="w">
-<div class="t">
-<h1>Des modèles <span class="g">3D</span> qui donnent vie à ton jeu</h1>
-<p>Modélisation stylisée ou réaliste pour jeux vidéo. Découvre mes derniers travaux, puis on en parle directement sur Discord.</p>
-<div class="row"><a class="btn" href="#contact">Prendre rendez-vous</a><a class="btn o" href="#modeles">Voir mes modèles</a></div>
-<div class="stats"><div class="st"><b id="nm">0</b><small>modèles</small></div><div class="st"><b id="nd">–</b><small>membres Discord</small></div></div>
-</div>
-<div class="scene"><div class="cube"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
-</div></header>
+<section><h2>Travaux récents</h2><div class="grid" id="recents"></div><p class="plus"><a href="portfolio.html">Voir tout le portfolio →</a></p></section>
 
-<div class="mq"><div><span>Stylisé</span><span>Réaliste</span><span>Low poly</span><span>PBR</span><span>Personnages</span><span>Props</span><span>Stylisé</span><span>Réaliste</span><span>Low poly</span><span>PBR</span><span>Personnages</span><span>Props</span></div></div>
+<section><h2>Services</h2><div class="list"><div><b>3D stylisée</b><span>Personnages, props et décors cartoon ou low poly</span></div><div><b>3D réaliste</b><span>Modèles détaillés, textures haute qualité</span></div></div></section>
 
-<section id="modeles"><div class="w">
-<h2>Derniers <span class="g">modèles</span></h2>
-<div id="liste"></div>
-</div></section>
-
-<section id="services"><div class="w">
-<h2>Mes <span class="g">services</span></h2>
-<div class="grid rv">
-<div class="card"><h3>3D stylisée</h3><p>Personnages, props et décors cartoon ou low poly, prêts pour ton jeu.</p></div>
-<div class="card"><h3>3D réaliste</h3><p>Modèles détaillés avec textures haute qualité.</p></div>
-</div>
-<h2 style="margin-top:42px">Comment ça <span class="g">marche</span></h2>
-<div class="grid rv">
-<div class="card"><i class="g">01</i><h3>Tu me contactes</h3><p>Via le formulaire ou directement sur Discord.</p></div>
-<div class="card"><i class="g">02</i><h3>On cadre le projet</h3><p>Style, délais et tarif définis ensemble.</p></div>
-<div class="card"><i class="g">03</i><h3>Je livre</h3><p>Ton modèle, optimisé et prêt à intégrer.</p></div>
-</div>
-</div></section>
-
-<section id="contact"><div class="w rv">
-<h2>Prendre <span class="g">rendez-vous</span></h2>
-<div class="dcard" id="dcard"><div><b><span class="dot"></span><span id="on">En ligne</span></b><p>Connecte-toi avec Discord et remplis ta demande ici : tu es ajouté à mon serveur et tu suis ta commande dans un salon privé.</p></div><a class="btn o" id="dc" href="#">Voir le serveur</a></div>
-<div id="login"><a class="btn" id="bl" href="#">Se connecter avec Discord</a></div>
+<section id="contact"><h2>Contact</h2>
+<p class="mut">Connecte-toi avec Discord et décris ton projet ici : tu es ajouté à mon serveur et la suite se passe dans un salon privé.</p>
+<div id="login"><a class="btn" id="bl" href="#contact">Se connecter avec Discord</a></div>
 <form id="f" hidden>
-<div id="who" class="who"></div>
+<div id="who" class="mut"></div>
 <select name="service"><option>3D stylisée</option><option>3D réaliste</option><option>Autre demande</option></select>
 <input name="date" placeholder="Date souhaitée (ex : samedi soir)">
 <textarea name="projet" rows="4" placeholder="Décris ton projet" required></textarea>
 <button class="btn" type="submit">Envoyer ma demande</button>
 </form>
 <div id="msg"></div>
-</div></section>
-
-<footer>© <span id="an"></span> · Portfolio 3D</footer>
-
-<script>
-/* ===== CONFIG : à modifier ===== */
-var DISCORD_CODE = "4kvSbTxGzQ";   // code de ton invitation (la fin du lien discord.gg/CODE)
-var BOT_URL = "https://lucky-cloud-da83.hugocavalon-perso.workers.dev";        // adresse de ton bot (la même que PUBLIC_URL dans son .env)
-var PAUSE_PHOTO = 4000;  // durée d’affichage de la photo (ms)
-
-/* ===== AJOUTER UN MODÈLE : copie un bloc, le plus récent s’affiche en premier ===== */
-var MODELES = [
-  { titre: "Personnage stylisé", date: "2026-10-20", video: "", photo: "", desc: "Personnage cartoon pour jeu mobile." },
-  { titre: "Épée réaliste", date: "2026-10-05", video: "", photo: "", desc: "Prop PBR avec textures 4K." }
-];
-
-function creerStage(m){
-  var s = document.createElement("div"); s.className = "stage";
-  var v = null, p = null, t = null;
-  if (m.video) { v = document.createElement("video"); v.src = m.video; v.muted = true; v.playsInline = true; s.appendChild(v); }
-  if (m.photo) { p = document.createElement("img"); p.className = "ph"; p.src = m.photo; p.alt = m.titre; s.appendChild(p); }
-  if (!v && !p) { var e = document.createElement("div"); e.className = "empty"; e.textContent = "Média à venir"; s.appendChild(e); return s; }
-  if (!v) { s.classList.add("photo"); return s; }
-  if (!p) { v.loop = true; return autoPlay(s, v); }
-  var tag = document.createElement("span"); tag.className = "tag"; tag.textContent = "Vidéo"; s.appendChild(tag);
-  function montrerPhoto(){ s.classList.add("photo"); tag.textContent = "Photo"; clearTimeout(t); t = setTimeout(retourVideo, PAUSE_PHOTO); }
-  function retourVideo(){ clearTimeout(t); s.classList.remove("photo"); tag.textContent = "Vidéo"; v.currentTime = 0; v.play(); }
-  v.addEventListener("ended", montrerPhoto);
-  s.addEventListener("click", function(){ if (s.classList.contains("photo")) retourVideo(); else { v.pause(); montrerPhoto(); } });
-  return autoPlay(s, v);
-}
-function autoPlay(s, v){
-  new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { v.play().catch(function(){}); } else { v.pause(); } }); }, {threshold:.5}).observe(s);
-  return s;
-}
-
-var L = document.getElementById("liste");
-MODELES.sort(function(a,b){ return b.date.localeCompare(a.date); }).forEach(function(m){
-  var d = document.createElement("div"); d.className = "model rv";
-  d.appendChild(creerStage(m));
-  var i = document.createElement("div"); i.className = "info";
-  i.innerHTML = "<h3></h3><p></p>";
-  i.querySelector("h3").textContent = m.titre;
-  i.querySelector("p").textContent = m.desc;
-  d.appendChild(i); L.appendChild(d);
-});
-document.getElementById("nm").textContent = MODELES.length;
-
-var io = new IntersectionObserver(function(en){ en.forEach(function(x){ if (x.isIntersecting) { x.target.classList.add("in"); io.unobserve(x.target); } }); }, {threshold:.12});
-document.querySelectorAll(".rv").forEach(function(el){ io.observe(el); });
-document.getElementById("an").textContent = new Date().getFullYear();
-
-/* Discord : lien + compteurs en direct (API publique des invitations) */
-var dc = document.getElementById("dc");
-if (DISCORD_CODE) {
-  dc.href = "https://discord.gg/" + DISCORD_CODE;
-  fetch("https://discord.com/api/v10/invites/" + DISCORD_CODE + "?with_counts=true")
-    .then(function(r){ return r.json(); })
-    .then(function(j){
-      if (j.approximate_member_count) document.getElementById("nd").textContent = j.approximate_member_count;
-      if (j.approximate_presence_count) document.getElementById("on").textContent = j.approximate_presence_count + " en ligne";
-    }).catch(function(){});
-} else { dc.style.display = "none"; }
-
-/* Connexion Discord + envoi de la demande au bot */
-var TK = "tk", bl = document.getElementById("bl"), form = document.getElementById("f"), msg = document.getElementById("msg");
-if (location.hash.indexOf("#token=") === 0) {
-  try { sessionStorage.setItem(TK, location.hash.slice(7)); } catch (e) {}
-  history.replaceState(null, "", location.pathname + "#contact");
-}
-var tok = null; try { tok = sessionStorage.getItem(TK); } catch (e) {}
-function nom(t){ try { var b = t.split(".")[0].replace(/-/g, "+").replace(/_/g, "/"); var o = JSON.parse(decodeURIComponent(escape(atob(b)))); return o.exp > Date.now() ? o.name : null; } catch (e) { return null; } }
-var pseudo = tok ? nom(tok) : null;
-if (pseudo) {
-  document.getElementById("login").hidden = true; form.hidden = false;
-  document.getElementById("who").textContent = "Connecté en tant que " + pseudo;
-} else if (BOT_URL) { bl.href = BOT_URL + "/auth/login"; }
-else { bl.addEventListener("click", function(e){ e.preventDefault(); msg.textContent = "Aperçu : la connexion Discord sera active une fois le bot configuré."; }); }
-form.addEventListener("submit", function(e){
-  e.preventDefault();
-  var btn = form.querySelector("button"); btn.disabled = true; msg.textContent = "Envoi…";
-  fetch(BOT_URL + "/api/demande", { method: "POST", headers: { "Content-Type": "application/json", "Authorization": "Bearer " + tok }, body: JSON.stringify({ service: form.service.value, date: form.date.value, projet: form.projet.value }) })
-    .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, j: j }; }); })
-    .then(function(x){ if (x.ok) { msg.textContent = "Demande envoyée ! Tu seras prévenu sur Discord dès que je l’aurai examinée."; form.reset(); } else { msg.textContent = x.j.error || "Erreur d’envoi."; } btn.disabled = false; })
-    .catch(function(){ msg.textContent = "Erreur d’envoi, réessaie dans un instant."; btn.disabled = false; });
-});
-
-</script>
+<div id="ok" hidden><p><b>Demande envoyée.</b> Tu seras notifié sur Discord dès qu’elle est acceptée, dans ton salon privé.</p><a class="btn dlink" href="#">Ouvrir Discord</a></div>
+<p class="mut">Déjà une commande ? <a class="dlink" href="#">Ouvre Discord</a></p>
+</section>
+</main>
+<footer><div class="w">© <span id="an"></span></div></footer>
+<script src="config.js"></script><script src="modeles.js"></script><script src="app.js"></script>
 </body>
 </html>
