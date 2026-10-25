@@ -7,15 +7,22 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header><div class="w"><a class="logo" href="index.html">Portfolio</a><nav><a href="index.html" class="on">Accueil</a><a href="portfolio.html">Portfolio</a><a href="#contact">Contact</a></nav></div></header>
+<div class="hero">
+<header><div class="w"><a class="logo" href="index.html">Portfolio</a><nav><a href="portfolio.html">Portfolio</a><a href="#contact" class="pill">Contact</a></nav></div></header>
+<div class="w hero-in">
+<p class="kick">Artiste 3D · Jeux vidéo</p>
+<h1>Modèles 3D<br><span id="mot">stylisés</span></h1>
+<p class="lead">Personnages, props et décors pour ton jeu. Tu réserves en un clic, on discute sur Discord.</p>
+<div class="cta"><a class="btn cta-login" href="#contact">Réserver un modèle</a><a class="btn line dlink" href="#">Rejoindre le Discord</a></div>
+</div>
+</div>
+<div class="mq"><div><span>Personnages</span><span>/</span><span>Props</span><span>/</span><span>Décors</span><span>/</span><span>Low poly</span><span>/</span><span>PBR</span><span>/</span><span>Stylisé</span><span>/</span><span>Réaliste</span><span>/</span><span>Personnages</span><span>/</span><span>Props</span><span>/</span><span>Décors</span><span>/</span><span>Low poly</span><span>/</span><span>PBR</span><span>/</span><span>Stylisé</span><span>/</span><span>Réaliste</span><span>/</span></div></div>
 <main class="w">
-<div class="intro"><h1>Modélisation 3D pour jeux vidéo, stylisée et réaliste.</h1><p>Personnages, props et décors. Réserve ton modèle en quelques clics.</p></div>
-
-<section><h2>Travaux récents</h2><div class="grid" id="recents"></div><p class="plus"><a href="portfolio.html">Voir tout le portfolio →</a></p></section>
-
-<section><h2>Services</h2><div class="list"><div><b>3D stylisée</b><span>Personnages, props et décors cartoon ou low poly</span></div><div><b>3D réaliste</b><span>Modèles détaillés, textures haute qualité</span></div></div></section>
-
-<section id="contact"><h2>Contact</h2>
+<section class="rv"><h2><i>01</i>Travaux récents</h2><div class="grid" id="recents"></div><p class="plus"><a href="portfolio.html">Voir tout le portfolio →</a></p></section>
+<section class="rv"><h2><i>02</i>Services</h2><div class="svc"><div class="b1"><b>3D stylisée</b><span>Personnages, props et décors cartoon ou low poly.</span></div><div class="b2"><b>3D réaliste</b><span>Modèles détaillés, textures haute qualité.</span></div></div></section>
+</main>
+<section id="contact" class="contact"><div class="w rv">
+<h2>Parlons de ton projet.</h2>
 <p class="mut">Connecte-toi avec Discord et décris ton projet ici : tu es ajouté à mon serveur et la suite se passe dans un salon privé.</p>
 <div id="login"><a class="btn" id="bl" href="#contact">Se connecter avec Discord</a></div>
 <form id="f" hidden>
@@ -28,9 +35,9 @@
 <div id="msg"></div>
 <div id="ok" hidden><p><b>Demande envoyée.</b> Tu seras notifié sur Discord dès qu’elle est acceptée, dans ton salon privé.</p><a class="btn dlink" href="#">Ouvrir Discord</a></div>
 <p class="mut">Déjà une commande ? <a class="dlink" href="#">Ouvre Discord</a></p>
-</section>
-</main>
+</div></section>
 <footer><div class="w">© <span id="an"></span></div></footer>
+<a class="fab" href="#contact">Me contacter</a>
 <script src="config.js"></script><script src="modeles.js"></script><script src="app.js"></script>
 </body>
 </html>

@@ -7,13 +7,16 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header><div class="w"><a class="logo" href="index.html">Portfolio</a><nav><a href="index.html">Accueil</a><a href="portfolio.html" class="on">Portfolio</a><a href="index.html#contact">Contact</a></nav></div></header>
+<div class="hero small">
+<header><div class="w"><a class="logo" href="index.html">Portfolio</a><nav><a href="portfolio.html" class="on">Portfolio</a><a href="index.html#contact" class="pill">Contact</a></nav></div></header>
+<div class="w hero-in"><h1>Tous mes modèles</h1></div>
+</div>
 <main class="w">
-<div class="intro"><h1>Tous mes modèles</h1><p>Clique sur un modèle pour le voir en grand.</p></div>
 <section><div class="filtres" id="filtres"></div><div class="grid" id="tous"></div></section>
-<section><h2>Un projet en tête ?</h2><a class="btn" href="index.html#contact">Réserver un modèle</a></section>
 </main>
+<section class="contact"><div class="w rv"><h2>Un projet en tête ?</h2><div class="cta"><a class="btn cta-login" href="index.html#contact">Réserver un modèle</a><a class="btn line dlink" href="#">Rejoindre le Discord</a></div></div></section>
 <footer><div class="w">© <span id="an"></span></div></footer>
+<a class="fab" href="index.html#contact">Me contacter</a>
 <script src="config.js"></script><script src="modeles.js"></script><script src="app.js"></script>
 </body>
 </html>

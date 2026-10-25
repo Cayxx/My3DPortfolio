@@ -40,7 +40,7 @@ function ouvrir(m) {
 var trie = MODELES.slice().sort(function (a, b) { return b.date.localeCompare(a.date); });
 function carte(m) {
   var d = document.createElement("div"), c = document.createElement("div"), b = document.createElement("b"), s = document.createElement("span");
-  d.className = "item"; c.className = "cap";
+  d.className = "item rv"; c.className = "cap";
   b.textContent = m.titre; s.textContent = (m.categorie ? m.categorie + " · " : "") + m.date.slice(0, 4);
   c.appendChild(b); c.appendChild(s); d.appendChild(creerStage(m, false)); d.appendChild(c);
   d.addEventListener("click", function () { ouvrir(m); });
@@ -56,11 +56,37 @@ if (g2 && f) {
     f.querySelectorAll("button").forEach(function (b) { b.classList.toggle("on", b.dataset.c === cat); });
   };
   var cats = [""]; trie.forEach(function (m) { if (m.categorie && cats.indexOf(m.categorie) < 0) cats.push(m.categorie); });
-  cats.forEach(function (c) { var b = document.createElement("button"); b.textContent = c || "Tous"; b.dataset.c = c; b.onclick = function () { afficher(c); }; f.appendChild(b); });
+  cats.forEach(function (c) { var b = document.createElement("button"); b.textContent = c || "Tous"; b.dataset.c = c; b.onclick = function () { afficher(c); observerRv(); }; f.appendChild(b); });
   afficher("");
 }
 
+/* Dynamisme : mot qui change, apparition au scroll, bouton contact, accès direct à la connexion Discord */
+var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+var mot = q("#mot"), mots = ["stylisés", "réalistes", "sur mesure", "pour ton jeu"], im = 0;
+if (mot && !reduce) setInterval(function () {
+  mot.style.opacity = 0; mot.style.transform = "translateY(40%)";
+  setTimeout(function () {
+    im = (im + 1) % mots.length; mot.textContent = mots[im];
+    mot.style.transition = "none"; mot.style.transform = "translateY(-40%)"; mot.offsetWidth;
+    mot.style.transition = ""; mot.style.opacity = 1; mot.style.transform = "none";
+  }, 300);
+}, 2400);
+var surIndex = !!q("#f"), connecte = false;
+try { connecte = !!sessionStorage.getItem("tk"); } catch (e) {}
+document.querySelectorAll(".cta-login").forEach(function (a) {
+  a.href = !surIndex ? "index.html#contact" : (!connecte && C.botUrl ? C.botUrl + "/auth/login" : "#contact");
+});
+var fab = q(".fab"), vis = {};
+function majFab() { if (fab) fab.classList.toggle("off", !!(vis.a || vis.b)); }
+[[".cta", "a"], ["#contact", "b"]].forEach(function (p) {
+  var el = q(p[0]);
+  if (el) new IntersectionObserver(function (en) { vis[p[1]] = en[0].isIntersecting; majFab(); }, { threshold: .3 }).observe(el);
+});
+var rvObs = new IntersectionObserver(function (en) { en.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add("in"); rvObs.unobserve(x.target); } }); }, { threshold: .1 });
+function observerRv() { document.querySelectorAll(".rv:not(.in)").forEach(function (el) { rvObs.observe(el); }); }
+
 /* Contact : connexion Discord + envoi de la demande */
+observerRv();
 var form = q("#f");
 if (!form) return;
 var TK = "tk", msg = q("#msg"), bl = q("#bl");
