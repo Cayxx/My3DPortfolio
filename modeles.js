@@ -4,5 +4,5 @@
 var MODELES = [
   { titre: "Loot Box ", date: "2026-10-20", categorie: "Stylisé", video: "media/boxFuturiste.mp4", photo: "media/0088.png", desc: "Lootbox pour jeu mobile." },
   { titre: "Elfe Réaliste ", date: "2026-10-20", categorie: "Réaliste", video: "media/0001-0100.mp4", photo: "media/Elfe.png", desc: "Buste d'un Elfe (Teste)." },
-  { titre: "Animation Roblox ", date: "2026-10-20", categorie: "Animation", video: "animRoblox001.mvk", photo: "", desc: "Animation faite pour un jeu roblox." }
+  { titre: "Animation Roblox ", date: "2026-10-20", categorie: "Animation", video: "media/animRoblox001.mp4", photo: "", desc: "Animation faite pour un jeu roblox." }
 ];
